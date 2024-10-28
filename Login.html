@@ -1,0 +1,175 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+     <!-- styling  -->
+<style>
+    body {
+    background: url(assets/images/background\ img\ ott.jpg) no-repeat center center fixed;
+    background-size: cover; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    backdrop-filter: blur(8px);
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); 
+    width: 320px; 
+    text-align: center; 
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#loginHeading {
+    font-size: 28px; 
+    margin-bottom: 10px;
+    color: black; 
+}
+
+input[type="email"],
+input[type="password"] {
+    height: 45px; 
+    width: 90%;
+    padding: 0 15px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+#login {
+    height: 45px; 
+    width: 100%;
+    background-color: rgb(179, 47, 179);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#login:hover {
+    background-color: rgb(158, 13, 158);
+    transform: scale(1.05); 
+}
+
+p {
+    text-align: center;
+    font-size: 16px; 
+    color: black;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgb(158, 13, 158);
+}
+#email-error{
+    color: red;
+}
+#password-error{
+    color: red;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <form action="" id="form">      
+            <h1 id="loginHeading">LOGIN</h1>
+            <input type="email" id="email" name="email" placeholder="Email">
+            <span id="email-error" ></span>
+            <input type="password" id="password" name="password" itemid="Password" placeholder="Password">
+            <span id="password-error"></span>  
+            <button id="login">Login</button>
+            <p>don't have an account?<a href="signup.html">Sign up</a></p>
+        </form>
+    </div>
+
+    <script>
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        const emailerror = document.getElementById("email-error");
+        const passworderror = document.getElementById("password-error");
+        
+        const form = document.getElementById("form");
+
+        const minlength = 8;
+
+    
+        form.addEventListener("submit", (event) => {
+            // Clear previous error messages
+            emailerror.textContent = '';
+            passworderror.textContent = '';
+
+            let valid = true;
+
+            // Validate email
+            if (email.value.length === 0) {
+                emailerror.textContent = "Email required";
+                valid = false; 
+            } 
+            else if (!validateEmail(email.value)) {
+                emailerror.textContent = "Please enter a valid email";
+                valid = false; 
+            } 
+
+            // Validate password
+            if (password.value.length === 0) {
+                passworderror.textContent = "Password required";
+                valid = false; 
+            } else if (password.value.length <= minlength) {
+                passworderror.textContent = `Password must be at least ${minlength} characters long.`;
+                valid = false; 
+            }
+
+            // Prevent form submission if invalid
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+
+        email.addEventListener("input", () => {
+            emailerror.textContent = ''; // Clear email error message
+        });
+
+        password.addEventListener("input", () => {
+            passworderror.textContent = ''; // Clear password error message
+        });
+        function validateEmail(email) {
+            // Regular expression for validating an Email
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+</body>
+</html> 
+
+
